@@ -1,13 +1,10 @@
-FROM php:fpm-alpine
+FROM php:7.3-fpm
 
-RUN apk add --no-cache $PHPIZE_DEPS oniguruma-dev libzip-dev curl-dev \
-    && docker-php-ext-install pdo_mysql mbstring zip curl \
-    && pecl install xdebug redis \
-    && docker-php-ext-enable xdebug redis
+RUN apt-get update -y && apt-get install -y openssl zip unzip git
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN docker-php-ext-install pdo mbstring pdo_mysql
 
-RUN mkdir /app
-VOLUME /app
-WORKDIR /app
+WORKDIR /app/backend
 
-EXPOSE 8080
-CMD php artisan serve --host=0.0.0.0 --port=8080
+EXPOSE 8000
+CMD composer install && php artisan serve --host=0.0.0.0
