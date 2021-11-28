@@ -1,1 +1,4 @@
 .idea/
+docker-compose2.yaml
+
+/etc/mysql*
