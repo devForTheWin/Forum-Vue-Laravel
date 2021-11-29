@@ -9,3 +9,5 @@ frontend is vue
 
 backend is laravel
 
+#### Usage
+To run — docker-compose up -d
