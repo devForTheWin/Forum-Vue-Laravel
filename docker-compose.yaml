@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      - database
+    networks:
+      - app
+    user: "${UID}:${GID}"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/app/frontend
+    depends_on:
+      - backend
+    networks:
+      - app
+    user: "${UID}:${GID}"
+
+  database:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    ports:
+      - "9906:${MYSQL_PORT}"
+    networks:
+      - app
+
+volumes:
+  mysql-data:
+
+networks:
+  app:
+    driver: bridge

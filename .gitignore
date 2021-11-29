@@ -1,4 +1,12 @@
 .idea/
 docker-compose2.yaml
 
-/etc/mysql*
+mysql-data/*
+!mysql-data/.gitkeep
+
+.idea/
+/vendor
+
+.env
+
+router.txt
