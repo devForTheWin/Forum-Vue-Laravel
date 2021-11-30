@@ -36,5 +36,13 @@ class Post extends Model
 		return $this->belongsTo( User::class );
 	}
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	function authors()
+	{
+		return $this->belongsTo( User::class, 'user_id', 'id' );
+	}
+
 
 }
