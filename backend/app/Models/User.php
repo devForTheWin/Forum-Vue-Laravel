@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+		'name',
+		'surname',
+		'email',
+		'password',
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function posts()
+	{
+		return $this->hasMany( Post::class );
+	}
 }

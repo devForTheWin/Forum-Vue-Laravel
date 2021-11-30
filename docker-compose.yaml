@@ -5,12 +5,17 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      DB_HOST: forum_db
+      DB_DATABASE: "${MYSQL_DATABASE}"
+      DB_USERNAME: "${MYSQL_USER}"
+      DB_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     ports:
       - 8000:8000
     volumes:
       - ./backend:/app/backend
     depends_on:
-      - database
+      - forum_db
     networks:
       - app
     user: "${UID}:${GID}"
@@ -30,11 +35,10 @@ services:
       - app
     user: "${UID}:${GID}"
 
-  database:
+  forum_db:
     image: mysql:5.7.22
     environment:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
-      MYSQL_USER: "${MYSQL_USER}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
