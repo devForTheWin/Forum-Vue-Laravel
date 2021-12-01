@@ -66,9 +66,7 @@
 
       singOut() {
         this.singOutAction().then( () => {
-          this.$router.push( {
-            name: 'Home'
-          } )
+        window.location.reload();
         } )
       },
 
