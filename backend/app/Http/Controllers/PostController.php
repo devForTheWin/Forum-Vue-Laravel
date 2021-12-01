@@ -17,7 +17,7 @@ class PostController extends Controller
 	 */
 	public function index()
 	{
-		$posts = Post::orderBy( 'id', 'DESC' )->with( 'category' )->get();
+		$posts = Post::orderBy( 'id', 'DESC' )->with( 'category', 'likes' )->get();
 		return response()->json( $posts );
 	}
 
@@ -50,6 +50,16 @@ class PostController extends Controller
 		return response()->json( $request );
 	}
 
-
+	/**
+	 * Show post by id.
+	 *
+	 * @param  int $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id)
+	{
+		$post = Post::with( 'authors' )->where( 'id', $id )->first();
+		return response()->json( $post );
+	}
 
 }

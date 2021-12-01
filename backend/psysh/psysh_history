@@ -1,0 +1,3 @@
+CategoryPost::factory()->count(5)->create();
+PostUser::factory()->count(5)->create();
+CategoryPost::factory()->count(35)->create();
