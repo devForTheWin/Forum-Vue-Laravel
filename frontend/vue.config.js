@@ -9,7 +9,7 @@ module.exports = {
     // options...
     devServer: {
         disableHostCheck: true,
-        host: 'localhost',
+        host: '0.0.0.0',
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
@@ -17,7 +17,8 @@ module.exports = {
         watchOptions: {
             poll: true
         },
-        proxy: 'http://localhost/api',
+        proxy: 'http://localhost:8080',
+
     }
 }
 
