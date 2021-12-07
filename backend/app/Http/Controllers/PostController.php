@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
-use App\Models\PostUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ class PostController extends Controller
 	 */
 	public function index()
 	{
-		$posts = Post::orderBy( 'id', 'DESC' )->with( 'category', 'likes' )->get();
+		$posts = Post::orderBy( 'id', 'DESC' )->with( 'category', 'authors', 'likes' )->get();
 		return response()->json( $posts );
 	}
 
@@ -58,8 +58,30 @@ class PostController extends Controller
 	 */
 	public function show($id)
 	{
-		$post = Post::with( 'authors' )->where( 'id', $id )->first();
+		$post = Post::with( 'authors', 'likes' )->where( 'id', $id )->first();
 		return response()->json( $post );
+	}
+
+	/**
+	 * @param Post $post
+	 * @return string
+	 */
+
+	public function likes(Post $post)
+	{
+
+		$post = Post::find( $post->id );
+
+		if (Auth::user()->hasLikedPost( $post )) {
+			$post->likes()->where( 'user_id', Auth::id() )->delete();
+
+
+		} else {
+			$post->likes()->create( ['user_id' => Auth::id()] );
+		}
+
+		return response()->json( $post->likes->count() );
+
 	}
 
 }

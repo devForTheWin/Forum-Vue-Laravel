@@ -9,7 +9,9 @@
                     <i>{{ post.authors.name }} {{ post.authors.surname }}</i>
                 </div>
                 <div class="likes">
-                    <span><i>likes</i></span>
+                    <span>
+                        <i>likes</i>
+                    </span>
                 </div>
             </div>
             <div class="blog-data">
@@ -40,7 +42,7 @@
     },
 
     computed: {
-      ...mapState( 'auth', [ 'posts', 'user' ] )
+      ...mapState( 'auth', [ 'posts', 'user'] )
     },
 
     created() {
@@ -49,12 +51,12 @@
 
     methods: {
       ...mapActions( {
-        posts: 'auth/posts'
+        posts: 'auth/posts',
       } ),
 
       posts() {
         this.posts( this.slug )
-      }
+      },
     }
   }
 </script>

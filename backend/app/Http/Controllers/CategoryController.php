@@ -47,7 +47,8 @@ class CategoryController extends Controller
 	public function showPosts($slug)
 	{
 		$category = Category::where( 'slug', $slug )->first();
-		$posts = $category->posts()->orderBy( 'posts.id', 'DESC' )->where( 'is_published', '1' )->with( 'category' )->with('authors')->get();
+		$posts = $category->posts()->orderBy( 'posts.id', 'DESC' )
+			->where( 'is_published', '1' )->with( 'category', 'likes' )->with('authors')->get();
 
 		return response()->json( $posts );
 
@@ -64,7 +65,7 @@ class CategoryController extends Controller
 	public function show($slug, $id)
 	{
 		$category = Category::where( 'slug', $slug )->first();
-		$categoryPost = $category->posts()->with( 'category' )->with('authors')->findOrFail( $id );
+		$categoryPost = $category->posts()->with( 'category', 'likes' )->with('authors')->findOrFail( $id );
 
 		return response()->json( $categoryPost );
 	}

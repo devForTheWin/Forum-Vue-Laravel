@@ -47,7 +47,7 @@ class ProfileController extends Controller
 			'email' => 'string|email',
 		] );
 
-		$user = User::find( Auth::user()-> id );
+		$user = User::find( Auth::user()->id );
 		$user->name = $request['name'];
 		$user->surname = $request['surname'];
 		$user->email = $request['email'];

@@ -4,7 +4,7 @@
             <h2>{{ this.postTitle }}</h2>
             <div class="post-content ck-editor" v-html="postContent"></div>
             <div>
-                <h6>Category name : </h6>{{ category }}</div>
+                <h6>Category name : </h6>{{ this.category }}</div>
         </div>
     </div>
 </template>

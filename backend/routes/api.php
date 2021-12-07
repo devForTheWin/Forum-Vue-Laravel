@@ -1,8 +1,6 @@
 <?php
 
 
-use App\Http\Controllers\CommentController;
-use \App\Http\Controllers\LikeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
@@ -33,7 +31,7 @@ Route::post( '/logout', [AuthController::class, 'logout'] );
 
 Route::get( '/categories', [CategoryController::class, 'index'] );
 Route::get( '/categories/{slug}', [CategoryController::class, 'showPosts'] );
-Route::get( 'categories/{slug}/{postId}',[CategoryController::class, 'show'] );
+Route::get( '/categories/{slug}/{postId}', [CategoryController::class, 'show'] );
 
 Route::get( '/posts', [PostController::class, 'index'] );
 Route::get( '/posts/{id}', [PostController::class, 'show'] );
@@ -46,5 +44,7 @@ Route::group( ['middleware' => ['auth:sanctum']], function () {
 	Route::post( '/user', [ProfileController::class, 'updateProfile'] );
 
 	Route::post( '/new-post', [PostController::class, 'store'] );
+
+	Route::post( '/posts/like/{post}', [PostController::class, 'likes'] );
 
 } );

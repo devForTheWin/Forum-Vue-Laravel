@@ -17,5 +17,3 @@ store.dispatch('auth/attempt', localStorage.getItem('token')).then(()=> {
         .component('fa', FontAwesomeIcon)
         .use(router).mount('#app');
 });
-
-

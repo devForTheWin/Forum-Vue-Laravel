@@ -20,34 +20,34 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+    import {mapActions} from 'vuex'
 
-  export default {
-    name: "Login",
-    components: {},
-    data() {
-      return {
-        form: {
-          email: '',
-          password: '',
-          password_confirmation: ''
+    export default {
+        name: "Login",
+        components: {},
+        data() {
+            return {
+                form: {
+                    email: '',
+                    password: '',
+                    password_confirmation: ''
+                }
+            }
+        },
+
+        methods: {
+            ...mapActions({
+                login: 'auth/login'
+            }),
+            submit() {
+                this.login(this.form).then(() => {
+                    this.$router.push({
+                        name: "Home"
+                    });
+                })
+            }
         }
-      }
-    },
-
-    methods: {
-      ...mapActions( {
-        login: 'auth/login'
-      } ),
-      submit() {
-        this.login( this.form ).then( () => {
-          this.$router.push( {
-            name: "Home"
-          } );
-        } )
-      }
     }
-  }
 
 </script>
 

@@ -3,15 +3,14 @@
         <div class="container ">
             <h2>{{ singlePost.id }}</h2>
             <h2>{{ singlePost.title }}</h2>
-            <div>
-                <h4 @click="showAlert">{{ singlePost.authors.name }} {{ singlePost.authors.surname }}</h4>
+            <div @click="showAlert">
+                <h4>{{ singlePost.authors.name }} {{ singlePost.authors.surname }}</h4>
             </div>
-            //number of likes for !auth
-
             <div v-if="authenticated" class="likes">
-                <a href="#">
+                <a @click="liked" hrer="#">
                     <fa icon="thumbs-up"/>
-                    <h4>likes</h4>
+                    <h4> {{this.like}} </h4>
+
                 </a>
             </div>
             <div v-else class="likes">
@@ -26,33 +25,42 @@
 </template>
 
 <script>
-  import { mapState, mapGetters } from 'vuex'
+    import {mapState, mapGetters, mapActions} from 'vuex';
+    import axios from 'axios'
+    export default {
+        name: "CategoryPost",
 
-  export default {
-    name: "CategoryPost",
+        data() {
+            return {
+                id: this.$route.params.id,
+            }
+        },
+        methods: {
+            ...mapActions({
+                likes: 'auth/likes'
+            }),
 
-    data() {
-      return {
-        id: this.$route.params.id,
-      }
-    },
-    methods: {
-      showAlert: () => {
-        alert( 'Author Profile' )
-      }
-    },
+            showAlert: () => {
+                alert('Author Profile')
+            },
+            liked() {
+                this.likes(this.id)
+            },
 
-    computed: {
-      ...mapState( 'auth', [ 'singlePost' ] ),
-      ...mapGetters( {
-        authenticated: 'auth/authenticated',
-        user: 'auth/user'
-      } )
-    },
-    created() {
-      this.$store.dispatch( 'auth/singlePost', this.id )
+        },
+
+        computed: {
+            ...mapState('auth', ['singlePost', 'profileId', 'like']),
+
+            ...mapGetters({
+                authenticated: 'auth/authenticated',
+                user: 'auth/user',
+            })
+        },
+        created() {
+            this.$store.dispatch('auth/singlePost', this.id);
+        }
     }
-  }
 </script>
 
 <style lang="scss">

@@ -41,7 +41,7 @@ class Post extends Model
 	 */
 	function category()
 	{
-		return $this->belongsToMany( Category::class, 'category_posts');
+		return $this->belongsToMany( Category::class, 'category_posts' );
 	}
 
 	/**
@@ -51,6 +51,12 @@ class Post extends Model
 	{
 		return $this->belongsTo( User::class, 'user_id', 'id' );
 	}
+
+	public function likes()
+	{
+		return $this->morphMany(Like::class, 'likeable');
+	}
+
 
 
 }
