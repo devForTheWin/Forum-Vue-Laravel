@@ -6,16 +6,9 @@
             <div @click="showAlert">
                 <h4>{{ singlePost.authors.name }} {{ singlePost.authors.surname }}</h4>
             </div>
-            <div v-if="authenticated" class="likes">
-                <a @click="liked" hrer="#">
-                    <fa icon="thumbs-up"/>
-                    <h4> {{this.like}} </h4>
-
-                </a>
-            </div>
-            <div v-else class="likes">
+            <div class="likes" @click.prevent="liked">
                 <fa icon="thumbs-up"/>
-                <h4>likes</h4>
+                <div class="likes-num"> {{this.like}}</div>
             </div>
 
             <div class="post-content "> {{ singlePost.post_text }}</div>
@@ -26,7 +19,7 @@
 
 <script>
     import {mapState, mapGetters, mapActions} from 'vuex';
-    import axios from 'axios'
+
     export default {
         name: "CategoryPost",
 
@@ -43,8 +36,14 @@
             showAlert: () => {
                 alert('Author Profile')
             },
+
             liked() {
-                this.likes(this.id)
+                if (this.authenticated) {
+                    this.likes(this.id)
+
+                } else {
+                    window.location = '/login'
+                }
             },
 
         },
@@ -70,5 +69,20 @@
             font-size: 14px;
             margin-bottom: 24px;
         }
+    }
+
+    .likes {
+        display: flex;
+
+        .likes-num {
+            font-size: 16px;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+
+    }
+
+    .post-content {
+        margin-top: 25px;
     }
 </style>

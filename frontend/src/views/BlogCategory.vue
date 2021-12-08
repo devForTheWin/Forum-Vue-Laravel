@@ -9,8 +9,9 @@
                     <i>{{ post.authors.name }} {{ post.authors.surname }}</i>
                 </div>
                 <div class="likes">
+                    <fa icon="thumbs-up"/>
                     <span>
-                        <i>likes</i>
+                        <i>{{ post.likes.length }}</i>
                     </span>
                 </div>
             </div>
@@ -115,22 +116,18 @@
             display: inline-block;
         }
 
-        /*.author:hover {*/
-        /*color: mediumaquamarine;*/
-        /*}*/
-
         i {
             margin-right: 1rem;
         }
     }
 
-    /*.profile-menu{*/
-    /*width: 300px;*/
-    /*height: 200px;*/
-    /*position: absolute;*/
-    /*background-color: #f7f7f7;*/
-    /*z-index: 2;*/
-    /*}*/
+    .profile-menu{
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    background-color: #f7f7f7;
+    z-index: 2;
+    }
 
     .blog-data {
         padding: 3rem;
